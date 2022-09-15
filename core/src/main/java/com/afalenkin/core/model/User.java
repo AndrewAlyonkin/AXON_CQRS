@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Alenkin Andrew
  * oxqq@ya.ru
@@ -19,8 +23,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String id;
+
+    @NotEmpty(message = "firstName is mandatory")
     private String firstName;
+
+    @NotEmpty(message = "lastName is mandatory")
     private String lastName;
+
+    @Email(message = "please provide the valid email")
     private String email;
+
+    @NotNull
     private Account account;
 }
