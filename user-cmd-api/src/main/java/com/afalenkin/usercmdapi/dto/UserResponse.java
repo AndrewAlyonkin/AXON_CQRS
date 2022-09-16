@@ -1,6 +1,6 @@
 package com.afalenkin.usercmdapi.dto;
 
-import lombok.AllArgsConstructor;
+import com.afalenkin.core.dto.BaseResponse;
 import lombok.Data;
 
 /**
@@ -8,7 +8,7 @@ import lombok.Data;
  * oxqq@ya.ru
  */
 @Data
-public class UserResponse extends BaseResponse{
+public class UserResponse extends BaseResponse {
     private String id;
 
     public UserResponse(String id, String message) {

@@ -3,7 +3,7 @@ package com.afalenkin.usercmdapi.controllers;
 import com.afalenkin.usercmdapi.commands.DeleteUserCommand;
 import com.afalenkin.usercmdapi.commands.RegisterUserCommand;
 import com.afalenkin.usercmdapi.commands.UpdateUserCommand;
-import com.afalenkin.usercmdapi.dto.BaseResponse;
+import com.afalenkin.core.dto.BaseResponse;
 import com.afalenkin.usercmdapi.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

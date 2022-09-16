@@ -1,4 +1,4 @@
-package com.afalenkin.usercmdapi.dto;
+package com.afalenkin.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
