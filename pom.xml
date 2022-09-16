@@ -13,6 +13,7 @@
         <module>core</module>
         <module>user-cmd-api</module>
         <module>query-api</module>
+        <module>oauth</module>
     </modules>
 
     <properties>
