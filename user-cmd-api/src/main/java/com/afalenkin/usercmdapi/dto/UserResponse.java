@@ -11,7 +11,8 @@ import lombok.Data;
 public class UserResponse extends BaseResponse{
     private String id;
 
-    public UserResponse(String message) {
+    public UserResponse(String id, String message) {
         super(message);
+        this.id = id;
     }
 }

@@ -1,6 +1,8 @@
 package com.afalenkin.usercmdapi.commands;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 /**
@@ -8,6 +10,8 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
  * oxqq@ya.ru
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeleteUserCommand {
     @TargetAggregateIdentifier
     private String id;

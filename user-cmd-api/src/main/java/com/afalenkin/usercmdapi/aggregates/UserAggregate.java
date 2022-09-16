@@ -16,6 +16,7 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -31,14 +32,11 @@ public class UserAggregate {
     private String id;
     private User user;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @CommandHandler
-    public UserAggregate(RegisterUserCommand command) {
+    public UserAggregate(RegisterUserCommand command, PasswordEncoder passwordEncoder) {
         User registeringUser = command.getUser();
         String registeringId = command.getId();
-        normalizeUserData(registeringUser, registeringId);
+        normalizeUserData(registeringUser, registeringId, passwordEncoder);
 
         UserRegisteredEvent event = UserRegisteredEvent.builder()
                 .id(registeringId)
@@ -56,9 +54,9 @@ public class UserAggregate {
     }
 
     @CommandHandler
-    public void handle(UpdateUserCommand command) {
+    public void handle(UpdateUserCommand command, PasswordEncoder passwordEncoder) {
         User updatingUser = command.getUser();
-        normalizeUserData(updatingUser, command.getId());
+        normalizeUserData(updatingUser, command.getId(), passwordEncoder);
 
         UserUpdatedEvent event = UserUpdatedEvent.builder()
                 .id(UUID.randomUUID().toString())
@@ -85,7 +83,7 @@ public class UserAggregate {
         AggregateLifecycle.markDeleted();
     }
 
-    private void normalizeUserData(User currentUser, String currentId) {
+    private void normalizeUserData(User currentUser, String currentId, PasswordEncoder passwordEncoder) {
         currentUser.setId(currentId);
         String password = Optional.ofNullable(currentUser)
                 .map(User::getAccount)
