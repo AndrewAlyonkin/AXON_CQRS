@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,7 @@ public class UserController {
     private final CommandGateway commandGateway;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('WRITER')")
     public ResponseEntity<UserResponse> registerUser(@RequestBody @Valid RegisterUserCommand registerCommand) {
         String id = UUID.randomUUID().toString();
         try {
@@ -53,6 +55,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('WRITER')")
     public ResponseEntity<BaseResponse> updateUser(@RequestBody @Valid UpdateUserCommand updateCommand,
                                                    @PathVariable(value = "id") @NotEmpty String id) {
         try {
@@ -67,6 +70,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('WRITER')")
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable(value = "id") @NotEmpty String id) {
         try {
             commandGateway.sendAndWait(new DeleteUserCommand(id));

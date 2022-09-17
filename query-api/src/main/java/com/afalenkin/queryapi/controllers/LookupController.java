@@ -10,6 +10,7 @@ import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,16 +31,19 @@ public class LookupController {
     private final QueryGateway queryGateway;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('READER')")
     public ResponseEntity<QueryResponse> getAllUsers() {
         return getResponse(new FindAllUsersQuery());
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('READER')")
     public ResponseEntity<QueryResponse> getUserById(@PathVariable(value = "id") String id) {
         return getResponse(new FindUserByIdQuery(id));
     }
 
     @GetMapping(path = "search/{filter}")
+    @PreAuthorize("hasAuthority('READER')")
     public ResponseEntity<QueryResponse> getUserByFilter(@PathVariable(value = "filter") String filter) {
         return getResponse(new SearchUsersQuery(filter));
     }
