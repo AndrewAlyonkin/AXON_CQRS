@@ -1,0 +1,15 @@
+server:
+  port: 2000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: userCmdApi-Users
+          uri: http://localhost:8081/api/v1/users
+          predicates:
+            - Path=api/v1/users/**
+        - id: userQueryApi-lookup
+            uri: http://localhost:8082/api/v1/users/lookup
+            predicates:
+              - Path=/api/v1/users/lookup/**
